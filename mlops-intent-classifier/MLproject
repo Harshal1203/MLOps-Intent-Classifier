@@ -1,0 +1,29 @@
+name: mlops-intent-classifier
+
+conda_env: conda.yaml
+
+entry_points:
+  preprocess:
+    parameters:
+      config_path: {type: str, default: "configs/config.yaml"}
+    command: "python src/preprocess.py --config {config_path}"
+
+  train:
+    parameters:
+      config_path: {type: str, default: "configs/config.yaml"}
+      run_name:    {type: str, default: "default"}
+    command: "python src/train.py --config {config_path} --run-name {run_name}"
+
+  evaluate:
+    parameters:
+      config_path: {type: str, default: "configs/config.yaml"}
+      run_id:      {type: str, default: ""}
+    command: "python src/evaluate.py --config {config_path} --run-id {run_id}"
+
+  full_pipeline:
+    parameters:
+      config_path: {type: str, default: "configs/config.yaml"}
+    command: >
+      python src/preprocess.py --config {config_path} &&
+      python src/train.py --config {config_path} &&
+      python src/evaluate.py --config {config_path}

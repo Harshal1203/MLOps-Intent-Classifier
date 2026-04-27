@@ -1,0 +1,52 @@
+project:
+  name: mlops-intent-classifier
+  version: "0.1.0"
+
+data:
+  dataset: clinc150
+  raw_path: data/raw/
+  processed_path: data/processed/
+  synthetic_path: data/synthetic/
+  test_size: 0.15
+  val_size: 0.15
+  random_seed: 42
+
+model:
+  base_model: distilbert-base-uncased
+  num_labels: 150
+  max_length: 128
+
+training:
+  epochs: 5
+  batch_size: 32
+  learning_rate: 2e-5
+  warmup_steps: 500
+  weight_decay: 0.01
+  fp16: true
+  save_steps: 500
+  eval_steps: 500
+  output_dir: models/
+
+mlflow:
+  experiment_name: intent-classifier
+  tracking_uri: http://localhost:5000  # override with MLFLOW_TRACKING_URI env var
+  model_name: intent-classifier        # name in Model Registry
+
+promotion:
+  staging_accuracy_threshold: 0.88
+  production_accuracy_threshold: 0.91
+  max_latency_ms: 100
+
+serving:
+  host: 0.0.0.0
+  port: 8000
+  model_stage: Production
+
+monitoring:
+  drift_threshold: 0.15
+  check_interval_hours: 24
+  prediction_log_table: prediction_logs
+  retrain_on_drift: true
+
+database:
+  url: postgresql://user:password@localhost:5432/mlops_db  # override with DATABASE_URL env var

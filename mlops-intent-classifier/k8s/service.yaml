@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: intent-classifier-svc
+  namespace: mlops
+spec:
+  selector:
+    app: intent-classifier
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: ClusterIP

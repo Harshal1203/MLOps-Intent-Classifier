@@ -1,0 +1,40 @@
+stages:
+  preprocess:
+    cmd: python src/preprocess.py --config configs/config.yaml
+    deps:
+      - src/preprocess.py
+      - configs/config.yaml
+      - data/raw/
+    outs:
+      - data/processed/tokenized
+      - data/processed/id2label.json
+      - data/processed/label2id.json
+
+  generate_synthetic:
+    cmd: python src/datagen.py --source-csv data/processed/train.csv --n-per-intent 20
+    deps:
+      - src/datagen.py
+      - data/processed/train.csv
+    outs:
+      - data/synthetic/synthetic_samples.csv
+
+  train:
+    cmd: python src/train.py --config configs/config.yaml
+    deps:
+      - src/train.py
+      - configs/config.yaml
+      - data/processed/tokenized
+    params:
+      - configs/config.yaml:
+          - training
+          - model
+
+  evaluate:
+    cmd: python src/evaluate.py --config configs/config.yaml
+    deps:
+      - src/evaluate.py
+      - configs/config.yaml
+      - data/processed/tokenized
+    metrics:
+      - reports/metrics.json:
+          cache: false
