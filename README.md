@@ -77,19 +77,19 @@ mlops-intent-classifier/
 
 ## 🛠️ Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Model Training | PyTorch, HuggingFace Transformers |
-| Experiment Tracking | MLflow |
-| Pipeline Orchestration | Kubeflow Pipelines |
-| Data Versioning | DVC |
-| CI/CD | GitHub Actions |
-| Serving | FastAPI |
-| Containerization | Docker |
-| Deployment | Kubernetes (K8s) |
-| Monitoring | Evidently AI, Grafana, Prometheus |
-| Database | PostgreSQL |
-| GenAI Data Gen | LangChain + Claude/OpenAI API |
+| Layer                  | Technology                        |
+| ---------------------- | --------------------------------- |
+| Model Training         | PyTorch, HuggingFace Transformers |
+| Experiment Tracking    | MLflow                            |
+| Pipeline Orchestration | Kubeflow Pipelines                |
+| Data Versioning        | DVC                               |
+| CI/CD                  | GitHub Actions                    |
+| Serving                | FastAPI                           |
+| Containerization       | Docker                            |
+| Deployment             | Kubernetes (K8s)                  |
+| Monitoring             | Evidently AI, Grafana, Prometheus |
+| Database               | PostgreSQL                        |
+| GenAI Data Gen         | LangChain + Claude/OpenAI API     |
 
 ## ⚡ Quickstart
 
@@ -143,4 +143,4 @@ Predictions are logged to PostgreSQL. Evidently AI runs nightly drift reports co
 
 ---
 
-*Built as a portfolio project showcasing end-to-end ML Engineering skills.*
+_Built as a portfolio project showcasing end-to-end ML Engineering skills._
