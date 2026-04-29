@@ -1,0 +1,24 @@
+Run: tfidf-baseline-v1 | Run ID: b82a5383
+Test Accuracy: 0.8836 | F1 Macro: 0.8785
+
+                     precision    recall  f1-score   support
+
+        book_flight       0.94      0.94      0.94        17
+         book_hotel       0.85      0.89      0.87        19
+ cancel_reservation       1.00      0.83      0.91        18
+      check_balance       0.83      0.94      0.88        16
+      flight_status       0.89      0.94      0.92        18
+     freeze_account       0.65      0.93      0.76        14
+          lock_door       1.00      0.80      0.89        15
+           pay_bill       0.69      0.90      0.78        10
+          set_alarm       0.85      0.89      0.87        19
+     set_thermostat       0.81      0.94      0.87        18
+transaction_history       1.00      0.62      0.76        21
+     transfer_money       0.86      0.83      0.84        23
+       travel_alert       0.96      0.92      0.94        25
+    turn_off_lights       1.00      1.00      1.00        21
+     turn_on_lights       0.95      0.90      0.93        21
+
+           accuracy                           0.88       275
+          macro avg       0.89      0.89      0.88       275
+       weighted avg       0.90      0.88      0.88       275

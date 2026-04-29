@@ -1,0 +1,55 @@
+name: CD — Deploy on Model Promotion
+
+on:
+  # Manually trigger OR via MLflow webhook (POST to this endpoint)
+  workflow_dispatch:
+    inputs:
+      model_version:
+        description: "MLflow model version to deploy"
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure kubectl
+        uses: azure/setup-kubectl@v3
+
+      - name: Set Kubernetes context
+        uses: azure/k8s-set-context@v3
+        with:
+          kubeconfig: ${{ secrets.KUBECONFIG }}
+
+      - name: Log in to container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: api/Dockerfile
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}/intent-classifier:${{ github.sha }}
+            ghcr.io/${{ github.repository }}/intent-classifier:latest
+
+      - name: Update K8s deployment image
+        run: |
+          kubectl set image deployment/intent-classifier \
+            intent-classifier=ghcr.io/${{ github.repository }}/intent-classifier:${{ github.sha }} \
+            -n mlops
+
+      - name: Wait for rollout
+        run: kubectl rollout status deployment/intent-classifier -n mlops --timeout=120s
+
+      - name: Verify health endpoint
+        run: |
+          sleep 10
+          kubectl run health-check --image=curlimages/curl --restart=Never --rm -it \
+            -- curl -f http://intent-classifier-svc/health
