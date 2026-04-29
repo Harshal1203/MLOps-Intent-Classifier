@@ -1,80 +1,69 @@
-# Byte-compiled / optimized / DLL files
+# Python
 __pycache__/
 *.py[cod]
-*$py.class
-
-# Virtual environments
-venv/
-.env/
-env/
-.venv/
-
-# Distribution / packaging
+*.pyo
+*.pyd
 .Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
 *.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-
-# Pytest
-.pytest_cache/
-
-# Jupyter Notebook
+# Jupyter
 .ipynb_checkpoints/
+*.ipynb
 
-# Environment variables
+# ML artifacts — tracked by DVC, not Git
+data/raw/*
+data/processed/*
+data/synthetic/*
+models/
+mlruns/
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/synthetic/.gitkeep
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# Env
 .env
+
 .env.*
+!.env.example
+*.env
 
-# IDEs and editors
-.vscode/
-.idea/
-*.swp
-*.swo
+# Docker
+.dockerignore
 
-# OS files
+# OS
 .DS_Store
 Thumbs.db
 
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
 # Logs
+logs/
 *.log
 
-# SQLite database
-*.sqlite3
+# Model binaries (large files — use DVC in production)
+models/*.pkl
 
-# mypy
-.mypy_cache/
+# Local experiment DB (would be MLflow server in production)
+mlruns/
 
-# pyright
-.pyright/
-
-# Ruff
-.ruff_cache/
+# Reports are tracked
+!reports/*.txt
